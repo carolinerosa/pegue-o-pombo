@@ -19,10 +19,12 @@ public class GameView extends View implements Runnable {
 	private int pontos = 0;
 	private boolean jogoIniciado = false;
 	private Bitmap bmpFundo;
+	Context context;
 	
 	public GameView(Context context) {
 		super(context);
 		
+		this.context = context;
 		paint = new Paint();
 		Thread minhaThread = new Thread(this);
 		minhaThread.setPriority(Thread.MIN_PRIORITY);
@@ -33,7 +35,7 @@ public class GameView extends View implements Runnable {
 		
 		int y = (int) (Math.random()*(getHeight()-25));
 		int x = (int) (Math.random()*(getWidth()-25));
-		inimigos =  new Rects(x, y, getResources());
+		inimigos =  new Rects(x, y, getResources(), this.context);
 		
 		bmpFundo = BitmapFactory.decodeResource(getResources(), R.drawable.fundo);
 		bmpFundo = Bitmap.createScaledBitmap(bmpFundo, getWidth(), getHeight(), true);
