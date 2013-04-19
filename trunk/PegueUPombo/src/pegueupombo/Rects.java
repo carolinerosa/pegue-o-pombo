@@ -1,14 +1,30 @@
 package pegueupombo;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Rects extends Retangulo {
 	
-	public Rects(int x, int y, Resources res) {
+	Bitmap pombo;
+	public Rects(int x, int y, Resources res, Context context) {
 		super(x, y, 20, 20);
+		InputStream is;
+		try {
+			is = context.getAssets().open("pombo.png");
+			pombo = BitmapFactory.decodeStream(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 	public void mover(int height, int width) 
@@ -21,6 +37,6 @@ public class Rects extends Retangulo {
 	public void draw(Canvas canvas, Paint paint) 
 	{
 		paint.setColor(Color.RED);
-		canvas.drawRect(getX(),getY(),getX()+getWidth(), getY()+getHeight(),paint);
+		canvas.drawBitmap(pombo, getX(), getY(), paint);
 	}
 }
